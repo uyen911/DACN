@@ -1,0 +1,203 @@
+﻿<!-- Import thư viện Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+	<div class="row">
+		<div class="col product_section clearfix">
+
+			<!-- Breadcrumbs -->
+
+			<div class="breadcrumbs d-flex flex-row align-items-center">
+				<ul>
+					<li><a href="san-pham">Đặt lịch</a></li>
+					<li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
+				</ul>
+			</div>
+
+			<!-- Sidebar -->
+
+			<div class="sidebar">
+				<!--<div class="sidebar_section">
+					<div class="sidebar_title">
+						<h5>Danh Mục Sản Phẩm</h5>
+					</div>-->
+				@*@Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })*@
+				<!--</div>-->
+				<!-- Price Range Filtering -->
+				<div class="sidebar_section">
+
+					@Html.Action("Refesh", "Home")
+				</div>
+			</div>
+
+			<!-- Main Content -->
+
+			<div class="main_content">
+
+				<div class="products_iso">
+					<h2 style="text-align: center">Lịch sử đặt lịch</h2>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Dịch vụ</th>
+								<th>Ngày đặt</th>
+								<th>Trạng thái</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in ViewBag.History)
+							{
+								@*<tr>
+				<td>@item.ServiceName</td>
+				<td>@item.Date.ToString("dd/MM/yyyy")</td>
+				<td><span @if (item.Status == "Chờ xác nhận") { <text> class="pending" </text> } @if (item.Status == "Đã hủy") { <text> class="cancel" </text> } @if (item.Status == "Hoàn thành") { <text> class="done" </text> }>@item.Status</span></td>
+				<td><button id="btnCancel" data-id="@item.Code" class="btn btn-lg btn-danger @if (item.Status == "Đã hủy" || item.Status == "Hoàn thành" || item.Status == "Đã xác nhận") { <text>disabled</text> }">Hủy</button></td>
+			</tr>*@
+							<tr>
+								<td>@item.ServiceName</td>
+								<td>@item.Date.ToString("dd/MM/yyyy")</td>
+								<td>
+									<span class="
+                                            @if (item.Status == "Chờ xác nhận") { <text>pending</text> }
+                                            @if (item.Status == "Đã hủy") { <text>cancel</text> }
+                                            @if (item.Status == "Hoàn thành") { <text>done</text> }
+                                        ">@item.Status</span>
+									</td>
+									<td>
+										<button id="btnCancel"
+												data-id="@item.Code"
+												class="btn btn-lg btn-danger
+                                                       @if (item.Status == "Đã hủy" || item.Status == "Hoàn thành") {
+                                                           <text>disabled</text>
+                                                       }"
+												@if (item.Status == "Đã hủy" || item.Status == "Hoàn thành") { <text> disabled="disabled" </text>  }>
+											Hủy
+										</button>
+									</td>
+								</tr>
+							}
+						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+		.pending {
+			border-radius: 5px;
+			background-color: yellow;
+		}
+
+		.cancel {
+			color: white;
+			border-radius: 5px;
+			background-color: #de0b40;
+		}
+
+		.done {
+			color: white;
+			border-radius: 5px;
+			background-color: #37d45e;
+		}
+	</style>
+
+	<script>
+    function cancelAppointment(code) {
+        swal({
+            title: 'Thông báo',
+            text: 'Bạn có chắc muốn hủy đặt lịch này không?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CancelAppointment", "Services")',
+                    data: { code: code },
+                    success: function (result) {
+                        if (result.success) {
+                            swal({
+                                title: 'Thông báo',
+                                text: result.message,
+                                icon: 'success',
+                                button: "Đóng",
+                            }).then((value) => {
+                                location.reload();
+                            });
+                        } else {
+                            swal({
+                                title: 'Thông báo',
+                                text: result.message,
+                                icon: 'warning',
+                                button: 'Đóng'
+                            });
+                        }
+                    },
+                    error: function () {
+                        swal({
+                            title: 'Thông báo',
+                            text: 'Có lỗi xảy ra khi hủy đặt lịch. Vui lòng thử lại sau.',
+                            icon: 'error',
+                            button: 'Đóng'
+                        });
+                    }
+                });
+            }
+        })
+    }
+    $(function () {
+        $('body').on('click', '.cancel-appointment', function () {
+            var id = $(this).data('id');
+            cancelAppointment(id);
+        });
+    });
+
+    $(function () {
+        $('body').on('click', '#btnCancel', function () {
+            var id = $(this).closest('tr').find('.cancel-appointment').data('id');
+            var code = $(this).data('id');
+            cancelAppointment(code);
+        });
+    });
+
+    function updateAppointmentStatus(id, status) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateAppointmentStatus", "Services")',
+            data: { id: id, status: status },
+            success: function (result) {
+            if (result.success) {
+                alert(result.message);
+                swal({
+                    title: 'Thông báo',
+                    text: result.message,
+                    icon: 'success',
+                    button: 'Đóng'
+                });
+            } else {
+                swal({
+                    title: 'Thông báo',
+                    text: result.message,
+                    icon: 'error',
+                    button: 'Đóng'
+                });
+                }
+            },
+            error: function () {
+                swal({
+                    title: 'Thông báo',
+                    text: 'Có lỗi xảy ra khi cập nhật trạng thái đặt lịch. Vui lòng thử lại sau.',
+                    icon: 'error',
+                    button: 'Đóng'
+                });
+            }
+            });
+            }
+	</script>
+	@section scripts{
+		<script src="~/Content/assets/js/categories_custom.js"></script>
+	}

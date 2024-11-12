@@ -1,0 +1,103 @@
+﻿@model IEnumerable<CosmeticsStore.Models.EF.Branchs>
+@{
+    ViewBag.Title = "Liên Hệ";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li class="active"><a href="/lien-he"><i class="fa fa-angle-right" aria-hidden="true"></i>Liên Hệ</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Map Container -->
+
+    <div class="row">
+        <div class="col">
+            <div id="google_map">
+                <div class="map_container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1663.9978432765208!2d106.65933469609514!3d10.753114345343855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ef6ca551517%3A0xc331bdcaa0992e4b!2zNzM2IMSQLiBOZ3V54buFbiBUcsOjaSwgUGjGsOG7nW5nIDExLCBRdeG6rW4gNSwgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1727155170442!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+
+    <div class="row">
+
+        <div class="col-lg-6 contact_col">
+            <div class="contact_contents">
+                <h1>Liên hệ</h1>
+                <div>
+                    <p>SĐT: 0123456789</p>
+                    <p>Email: admin@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Follow Us -->
+        </div>
+        <div class="col-lg-6 follow_us_contents">
+            <h1>Theo dõi</h1>
+            <ul class="social d-flex flex-row">
+                <li><a href="#" style="background-color: #3a61c9"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#" style="background-color: #fb4343"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                <li><a href="#" style="background-color: #8f6247"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <h2 style="padding-top:30px">Chi nhánh</h2>
+        foreach (var item in Model)
+        {
+            <div class="row" style="padding-top: 35px">
+                <div class="col-2">
+                    <img src="@item.Image" width="150" height="160" />
+                </div>
+                <div class="col-10">
+                    <h5>@item.Title</h5>
+                    <p>Địa chỉ: @item.Location</p>
+                    <p>Giờ hoạt động: 08:00am - 17:00 pm</p>
+                    <p>Liên hệ: @item.Phone</p>
+                    <a href="@item.Map" class="btn btn-lg" style="border-radius:20px; font-size:13px;font-weight:bold; background-color:#001455; color:white">Chỉ đường</a>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+@section scripts{
+    <script src="~/Content/assets/js/contact_custom.js"></script>
+}
+
+@section Css{
+    <style>
+        .map_container {
+            overflow: hidden;
+            padding-bottom: 35%;
+            position: relative;
+            height: 0;
+        }
+
+            .map_container iframe {
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+            }
+    </style>
+}

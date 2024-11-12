@@ -1,0 +1,96 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Full Text Search";
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+<div class="main">
+
+    <!-- Actual search box -->
+    <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Search" id="searchQuery" name="searchQuery">
+    </div>
+    <div class="searchResult" id="searchResults"></div>
+</div>
+
+
+<style>
+    /* Styles for wrapping the search box */
+
+    .main {
+        width: 50%;
+        margin: 50px auto;
+    }
+
+    /* Bootstrap 4 text input with search icon */
+
+    .has-search .form-control {
+        padding-left: 2.375rem;
+    }
+
+    .has-search .form-control-feedback {
+        position: absolute;
+        z-index: 2;
+        display: block;
+        width: 2.375rem;
+        height: 2.375rem;
+        line-height: 2.375rem;
+        text-align: center;
+        pointer-events: none;
+        color: black;
+    }
+
+    .product{
+        height: 100px;
+    }
+    .image {
+        width: 60px;
+        height: 50px;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        const searchQuery = document.getElementById("searchQuery");
+        const searchResults = document.getElementById("searchResults");
+
+        searchQuery.addEventListener("input", () => {
+            const query = searchQuery.value;
+            const searchResultUrl = '@Url.Action("SearchProducts", "Home")';
+
+            if (query.length > 0) {
+                fetch(`/Home/SearchProducts?searchQuery=${query}`)
+                    .then(response => response.json())
+                    .then(result => {
+                        let html = '';
+                        if (result != null && result.length > 0) {
+                            result.forEach(product => {
+                                html += `
+                                    <div class="product">
+                                        <h3>${product.Title}</h3>
+                                        <div>
+                                        <p>${product.Description}</p>
+                                        <img src="${product.Image}" class="image"/>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                        } else {
+                            html = '<p>Không tìm thấy sản phẩm nào.</p>';
+                        }
+                        searchResults.innerHTML = html;
+                    }
+
+                    )
+                    .catch(error => console.error(error));
+            } else {
+                searchResults.innerHTML = "";
+            }
+        });
+    </script>
+}

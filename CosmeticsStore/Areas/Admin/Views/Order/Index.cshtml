@@ -1,0 +1,218 @@
+﻿@model PagedList.IPagedList<CosmeticsStore.Models.EF.Order>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link"><font color="white">Trang chủ</font></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/order" class="nav-link"><font color="white">Danh sách đơn hàng</font></a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách đơn hàng</h3>
+        </div>
+        <div class="card-body">
+            <div class="row" style="padding-bottom:15px">
+                <div class="col-6">
+                    <form>
+                        @using (Html.BeginForm("index", "Orders", FormMethod.Get, new { }))
+                        {
+                            <div class="input-group input-group">
+                                <input id="Searchtext" name="Searchtext" type="text" class="form-control" placeholder="Mã đơn hàng/Tên khách hàng/Số điện thoại">
+                                @*<input type="text" name="searchText" class="form-control">*@
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-info">Tìm Kiếm</button>
+                                </span>
+                            </div>
+                        }
+                    </form>
+                </div>
+                <div class="col-6" style="text-align:right">
+                    <a href="@Url.Action("ExportExcel_EPPLUS","Order")" class="btn btn-warning">Xuất Excel</a>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày đặt</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Code</td>
+                                <td>@item.CustomerName</td>
+                                <td>@item.Phone</td>
+                                <td>@CosmeticsStore.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
+                                @*<td>@(item.TypePayment==1? "Chờ thanh toán": "Đã thanh toán")</td>*@
+                                @switch (item.TypePayment)
+                                {
+                                    case 1:
+                                        <td>Chờ Thanh Toán</td>
+                                        break;
+                                    case 2:
+                                        <td>Đã Hoàn Thành</td>
+                                        break;
+                                    case 3:
+                                        <td>Thanh Toán Paypal</td>
+                                        break;
+                                    case 4:
+                                        <td>Thanh Toán VNPay</td>
+                                        break;
+                                    case 5:
+                                        <td>Thanh Toán Momo</td>
+                                        break;
+                                    case 6:
+                                        <td>Hủy Đơn Hàng</td>
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Chi tiết</a>
+                                    <a href="#" class="btn btn-sm btn-primary btnCapNhat" data-id="@item.Id">Cập nhật</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật thanh toán</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderId" value="0" />
+                <div classs="form-group">
+                    <label>Trạng thái</label>
+                    <select class="form-control" id="ddTrangThai">
+                        <option value="1">
+                            Chờ thanh toán
+                        </option>
+                        <option value="2 ">
+                            Đã Hoàn Thành
+                        </option>
+                        <option value="6">
+                            Hủy Đơn Hàng
+                        </option>
+                        <option value="3 ">
+                            Thanh toán Paypal
+                        </option>
+                        <option value="4 ">
+                            Thanh toán VNPay
+                        </option>
+                        <option value="5 ">
+                            Thanh Toán Momo
+                        </option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnLuu">Lưu lại</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnCapNhat', function () {
+                var id = $(this).data("id");
+                $('#txtOrderId').val(id);
+                $('#modal-default').modal('show');
+            });
+
+            $('body').on('click', '#btnLuu', function () {
+                var id = $("#txtOrderId").val();
+                var tt = $("#ddTrangThai").val();
+                $.ajax({
+                    url: '/admin/order/UpdateTT',
+                    type: 'POST',
+                    data: { id: id, trangthai: tt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn chắc chắn có muốn xoá ?');
+                if (conf == true) {
+                    $.ajax({
+                        url: '/admin/order/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+                    });
+                }
+            });
+
+        });
+
+    </script>
+}

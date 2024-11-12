@@ -1,0 +1,387 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Mulish', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    text-align:center;
+}
+
+.containers {
+    width: 80%;
+    display: flex;
+    height: 500px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* .containers .box {
+    position: relative;
+    height: 100%;
+    width: 50%;
+    transition: all 1.5s;
+    transform: translateX(0);
+    background-color: #fff;
+    z-index: 1;
+}
+
+.containers.active .box {
+    transition: all 1.5s;
+    transform: translateX(100%);
+}
+
+.containers .box .form {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.containers .box .form.sign_up {
+    opacity: 0;
+    z-index: 2;
+    background-color: #fff;
+}
+
+
+.containers .box .form.sign_in {
+    transition: all 0.5s;
+    z-index: 5;
+    background-color: #fff;
+}
+
+.containers.active .box .form.sign_in {
+    animation: Show 0.65s ease-in-out;
+}
+
+.containers .overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #FF4167;
+    width: calc(100% - 50%);
+    height: 100%;
+    transition: all 1.5s;
+    transform: translateX(0);
+    z-index: 5;
+}
+
+.containers.active .overlay {
+    transition: all 1.5s;
+    transform: translateX(-100%);
+}
+
+.containers .overlay .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.containers .overlay .page.page_signIn {
+    z-index: 2;
+    background-color: #FF4167;
+}
+
+.containers .overlay .page.page_signUp {
+    z-index: 5;
+    background-color: #FF4167;
+}
+
+.overlay .page h3 {
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.overlay .page p {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+.btn {
+    display: inline-block;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 550;
+    background-color: transparent;
+    padding: 12px 45px;
+    border-radius: 22px;
+    border: 1.5px solid #fff;
+    cursor: pointer;
+}
+
+.form h3 {
+    color: #222;
+    font-size: 40px;
+}
+
+.form span {
+    color: #3a3838;
+}
+
+#form_input .type {
+    width: 330px;
+    height: 48px;
+    background-color: #EEEDEF;
+    margin: 30px 0;
+}
+
+#form_input .type input {
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+#form_input .type input::placeholder {
+    color: #A9A8A9;
+}
+
+#form_input .forgot {
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.bkg {
+    background-color: #FF4167;
+} */
+
+@keyframes Show {
+    0%, 49.999% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+@keyframes Hidden {
+    0%, 49.999% {
+        opacity: 1;
+        z-index: 5;
+    }
+
+    100% {
+        opacity: 0;
+        z-index: 1;
+    }
+}
+
+.containers .box {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 50%;
+    transition: all 0.8s;
+    transform: translateX(0);
+    background-color: #fff;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+}
+
+
+.containers.active .box {
+    transform: translateX(100%);
+}
+
+.containers .box .form {
+    position: absolute;
+    height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-align: center;
+}
+
+    .containers .box .form.sign_up {
+        /* transition: all 0.5s;
+    opacity: 0;
+    transform: translateX(-100%); */
+    }
+
+    .containers .box .form.sign_up {
+        transition: all 1.15s;
+        z-index: 1;
+        opacity: 0;
+        background-color: #fff;
+    }
+
+    .containers .box .form.sign_in {
+        opacity: 1;
+        transition: all 1.15s;
+        z-index: 5;
+        background-color: #fff;
+    }
+
+.containers.active .box .form.sign_in {
+    z-index: 1;
+    opacity: 0;
+}
+
+.containers.active .box .form.sign_up {
+    z-index: 5;
+    opacity: 1;
+}
+
+.containers.active .box .form.sign_up {
+    /* opacity: 1;
+    transform: translateX(0%); */
+}
+
+.containers .box .form.sign_in {
+    /* transition: all 0.5s;
+    opacity: 1;
+    transform: translateX(0%); */
+}
+
+.containers.active .box .form.sign_in {
+    /* opacity: 0;
+    transform: translateX(100%); */
+}
+
+.containers .overlay {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    transition: all 0.8s;
+    transform: translateX(0);
+    background: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+    z-index: 1;
+    overflow: hidden;
+    z-index: 5;
+    opacity: 1;
+}
+
+.containers.active .overlay {
+    transform: translateX(-100%);
+}
+
+.containers .overlay .page {
+    height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.5s;
+    opacity: 1;
+}
+
+.containers.active .overlay .page.page_signIn {
+    opacity: 0;
+    margin-left: -100%;
+}
+
+.containers.active .overlay .page.page_signUp {
+    margin-left: 0%;
+}
+
+
+.overlay .page h3 {
+    /* color: #fff;*/
+    font-size: 40px;
+    margin-bottom: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.overlay .page p {
+    color: black;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 17px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btna {
+    display: inline-block;
+    outline: none;
+    color: black;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 550;
+    background-color: transparent;
+    padding: 12px 45px;
+    border-radius: 22px;
+    border: 1.5px solid black;
+    cursor: pointer;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.form h3 {
+    color: #222;
+    font-size: 40px;
+}
+
+.form span {
+    color: #3a3838;
+}
+
+#form_input .type {
+    width: 330px;
+    height: 48px;
+    background-color: #EEEDEF;
+    margin: 30px 0;
+}
+
+    #form_input .type input {
+        width: 100%;
+        height: 100%;
+        padding: 0 10px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+
+        #form_input .type input::placeholder {
+            color: #A9A8A9;
+        }
+
+#form_input .forgot {
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.bkg {
+    background: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+}
+
+.btn {
+    border-radius:20px;
+}
+

@@ -1,0 +1,165 @@
+﻿@model IEnumerable<CosmeticsStore.Models.EF.AddressBook>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<style>
+    .news_section_container {
+        margin-top: 180px;
+    }
+</style>
+<div class="container news_section_container">
+
+    <div class="col-md-12">
+        <h3 class="title-news text-center">Danh sách địa chỉ giao hàng</h3>
+        <h4 class="title-news text-center"><a href="/address/add">Thêm mới</a></h4>
+    </div>
+
+
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            if (item.IsDefault)
+            {
+                <div class="col-lg-6 mt-2">
+                    <div class="card bg-de">
+                        <div style="background-color: #ff6565" class="card-header">
+                            <div class="row">
+                                <div class="col">
+                                    <b>Địa chỉ giao hàng</b>
+                                    @if (item.IsDefault)
+                                    {
+                                        <a title="Thay đổi địa chỉ mặc định" href="#" data-id="@item.Id" class="btn btn-sm btn-success btnDefault"><i class="fa fa-check"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a title="Thay đổi địa chỉ mặc định" href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDefault"><i class="fa fa-times"></i></a>
+                                    }
+                                </div>
+                                <div class="col">
+                                    <div class="float-right">
+                                        @if (item.IsDefault)
+                                        {
+                                            <a style="" class="btn btn-lg btn-success" href="/thanh-toan" >Đặt hàng</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-lg btn-warning" title="Sửa địa chỉ giao hàng" href="/address/edit/@item.Id">Sửa</a>
+                                            <a href="#" data-id="@item.Id" class="btn btn-lg btn-danger btnDelete">Xoá</a>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p style="color:black">Họ và tên: @item.CustomerName</p>
+                            <p style="color:black">Địa chỉ: @item.Address</p>
+                            <p style="color:black">E-Mail: @item.Email</p>
+                            <p style="color:black">Số điện thoại: @item.Phone</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-6 mt-2">
+                    <div class="card bg-de">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col">
+                                    <b>Địa chỉ giao hàng</b>
+                                    @if (item.IsDefault)
+                                    {
+                                        <a title="Thay đổi địa chỉ mặc định" href="#" data-id="@item.Id" class="btn btn-sm btn-success btnDefault"><i class="fa fa-check"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a title="Thay đổi địa chỉ mặc định" href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDefault"><i class="fa fa-times"></i></a>
+                                    }
+                                </div>
+                                <div class="col">
+                                    <div class="float-right">
+                                        @if (item.IsDefault)
+                                        {
+                                            <a class="btn btn-lg btn-warning" title="Sửa địa chỉ giao hàng" href="/address/edit/@item.Id">Sửa</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-lg btn-warning" title="Sửa địa chỉ giao hàng" href="/address/edit/@item.Id">Sửa</a>
+                                            <a href="#" data-id="@item.Id" class="btn btn-lg btn-danger btnDelete">Xoá</a>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p style="color:black">Họ và tên: @item.CustomerName</p>
+                            <p style="color:black">Địa chỉ: @item.Address</p>
+                            <p style="color:black">E-Mail: @item.Email</p>
+                            <p style="color:black">Số điện thoại: @item.Phone</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        }
+
+    }
+
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                swal({
+                    title: 'Thông báo',
+                    text: 'Bạn có muốn xóa địa chỉ này không?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true
+                }).then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            url: '/address/delete',
+                            type: 'POST',
+                            data: { id: id },
+                            success: function (rs) {
+                                if (rs.success) {
+                                    $('#trow_' + id).remove();
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+            $(document).ready(function () {
+                $('body').on('click', '.btnDefault', function () {
+                    var id = $(this).data('id');
+                    $.ajax({
+                        url: '/address/default',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.SuccesS) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}

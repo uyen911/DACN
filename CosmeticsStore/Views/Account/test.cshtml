@@ -1,0 +1,33 @@
+﻿<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Thêm thẻ button để kích hoạt hộp thoại -->
+<button id="rescheduleButton">Dời lịch</button>
+
+<!-- Kích hoạt sự kiện click cho button -->
+<script>
+    document.getElementById("rescheduleButton").addEventListener("click", function () {
+        // Hiển thị hộp thoại khi button được click
+        Swal.fire({
+            title: "Chọn giờ",
+            html: '<input type="text" id="selectedHour" name="selectedHour" />',
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Hủy",
+            preConfirm: function () {
+                // Xử lý khi người dùng chọn giờ và nhấn Đồng ý
+                var selectedHour = document.getElementById("selectedHour").value;
+                // Gửi giờ đã chọn đến server hoặc xử lý khác tùy theo nhu cầu của bạn
+                console.log("Giờ đã chọn:", selectedHour);
+            }
+        });
+
+        // Kích hoạt Flatpickr cho trường chọn giờ trong hộp thoại
+        flatpickr("#selectedHour", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true
+        });
+    });
+</script>

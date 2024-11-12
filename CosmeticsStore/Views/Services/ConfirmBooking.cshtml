@@ -1,0 +1,80 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Xác nhận đặt lịch</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+
+</head>
+<body>
+    <div class="container product_section_container">
+        <div class="row">
+            <div class="col product_section clearfix">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="san-pham">Đặt lịch</a></li>
+                        <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar -->
+
+                <div class="sidebar">
+                    <!--<div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Danh Mục Sản Phẩm</h5>
+                        </div>-->
+                    @*@Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })*@
+                    <!--</div>-->
+                    <!-- Price Range Filtering -->
+                    <div class="sidebar_section">
+
+                        @Html.Action("Refesh", "Home")
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+
+                <div class="main_content">
+
+                    <div class="products_iso" style="text-align: center; justify-content: flex-start">
+                        <img src="https://i.pinimg.com/originals/74/2f/7e/742f7ea29cbfd7fd3f4848f17e621070.gif" style="background-color: white" alt="Success" width="300" height="200">
+                        <h3 style="text-align: center">Cảm ơn bạn đã đặt lịch tại phòng khám chúng tôi.</h3>
+                        <h3 style="text-align: center; color: #808080; font-weight: bold">Bạn sẽ nhận được cuộc gọi xác nhận trong vòng 60 phút.</h3>
+                        <p style="text-align: center; font-size: 20px">Thông tin đặt lịch của bạn như sau:</p>
+                        <p id="booking-info" style="text-align: center"></p>
+                        <button onclick="goBack()" style="font-size: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Trở lại</button>
+                        <button onclick="history()" style="font-size: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Lịch sử</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    
+    <script>
+                // Lấy thông tin đặt lịch từ URL query string
+                var urlParams = new URLSearchParams(window.location.search);
+                var name = urlParams.get('name');
+                var email = urlParams.get('email');
+                var phone = urlParams.get('phone');
+                var date = urlParams.get('date');
+                var time = urlParams.get('time');
+
+                // Hiển thị thông tin đặt lịch trên trang
+                document.getElementById("booking-info").innerHTML = "Họ và tên: " + name + "<br>Email: " + email + "<br>Số điện thoại: " + phone + "<br>Ngày hẹn: " + date + "<br>Giờ hẹn: " + time;
+
+                // Chuyển về trang đặt lịch nếu người dùng muốn đặt lịch thêm
+                function goBack() {
+                    window.history.back();
+                }
+                function history() {
+                    var confirmUrl = '@Url.Action("History", "Services")';
+                    window.location.replace(confirmUrl);
+                }
+    </script>
+</body>
+</html>

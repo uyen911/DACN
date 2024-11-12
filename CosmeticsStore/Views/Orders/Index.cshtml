@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CosmeticsStore.Models.EF.Order>
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<form name="myForm" onsubmit="return validateForm()" required>
+    @using (Html.BeginForm("index", "Orders", FormMethod.Get, new { }))
+    {
+        <div class="container product_section_container">
+            <div class="row">
+                <div style="justify-content:center;" class="input-group input-group-lg">
+                    <input id="Searchtext" name="Searchtext" type="text" class="form-control form-control-lg" placeholder="Mã Đơn Hàng">
+                    <button type="submit" style="width:70px" class="btn btn-lg btn-outline-danger">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    }
+</form>
+<section style="padding-top:25px" class="content">
+    <!-- Default box -->
+    <div class="card-body">
+        <table class="table table-bordered">
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    var i = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr style="font-weight:bold">
+                            <td>@i</td>
+                            <td>Mã ĐH: @item.Code</td>
+                            <td>Tên KH: @item.CustomerName</td>
+                            <td>SĐT: @item.Phone</td>
+                            <td>Tổng Tiền: @CosmeticsStore.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
+                            @*<td>@(item.TypePayment==1? "Chờ thanh toán": "Đã thanh toán")</td>*@
+                            @switch (item.TypePayment)
+                            {
+                                case 1:
+                                    <td>Chờ Thanh Toán</td>
+                                    break;
+                                case 2:
+                                    <td>Đã Chuyển Khoản</td>
+                                    break;
+                                case 3:
+                                    <td>Thanh Toán Paypal</td>
+                                    break;
+                                case 4:
+                                    <td>Thanh Toán VNPay</td>
+                                    break;
+                                case 5:
+                                    <td>Thanh Toán Momo</td>
+                                    break;
+                                case 6:
+                                    <td>Hủy Đơn Hàng</td>
+                                    break;
+                                default:
+                                    break;
+                            }
+                            <td>Ngày Đặt: @item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+
+</section>
+<script>
+    function validateForm() {
+        var x = document.forms["myForm"]["Searchtext"].value;
+        if (x == "") {
+            alert("Không được để trống Mã Đơn Hàng");
+            return false;
+        }
+    }
+</script>
+

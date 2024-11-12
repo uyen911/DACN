@@ -1,0 +1,174 @@
+﻿
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <!-- Sidebar user (optional) -->
+    
+
+    
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+            <li class="nav-item">
+                <a href="/admin/Category" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        <font color="RoyalBlue">Danh mục</font>
+                    </p>
+
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+                <a href="/admin/news" class="nav-link">
+                    <i class="nav-icon fas fa-newspaper"></i>
+                    <p>
+                        <font color="RoyalBlue">Tin tức</font>
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/posts" class="nav-link">
+                    <i class="nav-icon fas fa-paint-brush"></i>
+                    <p>
+                        <font color="RoyalBlue">Bài viết</font>
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/order" class="nav-link">
+                    <i class="nav-icon fas fa-cart-plus"></i>
+                    <p>
+                        <font color="RoyalBlue">Đơn hàng</font>
+
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/admin/chat/chat" class="nav-link">
+                    <i class="nav-icon fa fa-comment"></i>
+                    <p>
+                        <font color="RoyalBlue">Tin nhắn</font>
+
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-store"></i>
+                    <p>
+                        <font color="RoyalBlue">Quản lý sản phẩm</font>
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/admin/productcategory" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p> <font color="RoyalBlue">Danh mục</font></p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/products" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p> <font color="RoyalBlue">Sản phẩm</font></p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>
+                        <font color="RoyalBlue">Quản lý đặt lịch</font>
+                        <i class="right fas fa-hourglass-end"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="services" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p> <font color="RoyalBlue">Dịch vụ</font></p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/branchs" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p> <font color="RoyalBlue">Chi nhánh</font></p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Admin/Services/ListBooking" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p> <font color="RoyalBlue">Danh sách đặt lịch</font></p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/role" class="nav-link">
+                    <i class="nav-icon fas fa-people-arrows"></i>
+                    <p>
+                        <font color="RoyalBlue">Phân quyền</font>
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/account" class="nav-link">
+                    <i class="nav-icon fas fa-user-alt "></i>
+                    <p>
+                        <font color="RoyalBlue">Tài khoản</font>
+
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="javascript:document.getElementById('logOffForm').submit()" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p> <font color="RoyalBlue">Đăng xuất</font></p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/Statistical" class="nav-link">
+                    <i class="nav-icon fas fa-chart-bar"></i>
+                    <p>
+                        <font color="RoyalBlue">Doanh thu bán hàng</font>
+
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/settingsystem" class="nav-link">
+                    <i class="nav-icon fas fa-server"></i>
+                    <p>
+                        <font color="RoyalBlue">Cấu hình hệ thống</font>
+
+                    </p>
+                </a>
+            </li>
+
+
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
+@if (Request.IsAuthenticated)
+ {
+    <div style="display:none">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+        {
+             @Html.AntiForgeryToken();
+        }
+    </div>
+   
+ }

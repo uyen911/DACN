@@ -1,0 +1,140 @@
+﻿@model CosmeticsStore.Models.OrderViewModel
+<link href="~/Content/assets/styles/checkout_style.css" rel="stylesheet" />
+
+
+@using (Ajax.BeginForm("CheckOut", "Shoppingcart", new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "load_data",
+    OnComplete = "OnSuccessCO",
+    OnFailure = "OnFailure"
+
+}, new { @Id = "myForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h2 class="title">Thông tin khách hàng</h2>
+
+    if (!Request.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5 for="f_name">Họ tên khách hàng <abbr class="required" title="required"></abbr></h5>
+                    <input style="max-width:480px" id="f_name" type="text" name="CustomerName" required class="form-control" autocomplete="off" placeholder="Họ tên">
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5 for="street-address">Địa chỉ<abbr class="required" title="required"></abbr></h5>
+                    <input style="max-width:480px" id="street-address" type="text" name="Address" class="form-control" autocomplete="off" placeholder="Địa chỉ">
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5 for="phone">Số điện thoại</h5>
+                    <input style="max-width:480px" id="phone" type="text" name="Phone" class="form-control" autocomplete="off" placeholder="Số điện thoại">
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5 for="email">Email<abbr class="required" title="required"></abbr></h5>
+                    <input style="max-width:480px" id="email" type="text" name="Email" class="form-control" autocomplete="off" placeholder="Email">
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5>Hình thức thanh toán</h5>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="radio" name="TypePayment" value="1" checked="checked">
+                            <img width="50" src="~/Content/assets/images/cod.jpg" /><h5>COD (Thanh toán khi nhận hàng)</h5><br>
+                            <input type="radio" name="TypePayment" value="4">
+                            <img width="50" src="~/Content/assets/images/vnpay.png" /><h5>VNPay</h5><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div></div>
+                        <div class="form-group">
+                            <input type="radio" name="TypePayment" value="3">
+                            <img width="50" src="~/Content/assets/images/paypal.png" /><h5>PayPal</h5><br>
+                            <input type="radio" name="TypePayment" value="5">
+                            <img width="50" src="~/Content/assets/images/momo.png" /><h5>Momo</h5><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Đặt hàng</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var item in ViewBag.InfoOrder)
+        {
+            if (item.IsDefault)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card bg-de">
+                            <div style="background-color: #ff6565" class="card-header">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <a style="font-size:16px; color:black">Địa chỉ giao hàng</a>
+                                    </div>
+                                    <div class="col-3">
+                                        <a style="font-size:16px; text-align:right; color:black" href="/address/index">Thay đổi</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p style="color:black">Họ tên người nhận: @item.CustomerName</p>
+                                <p style="color:black">Địa chỉ: @item.Address</p>
+                                <p style="color:black">E-Mail: @item.Email</p>
+                                <p style="color:black">Số điện thoại: @item.Phone</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <div style="padding-top:15px" class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h5>Hình thức thanh toán</h5>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="radio" name="TypePayment" value="1" checked="checked">
+                            <img width="50" src="~/Content/assets/images/cod.jpg" /><h5>COD (Thanh toán khi nhận hàng)</h5><br>
+                            <input type="radio" name="TypePayment" value="4">
+                            <img width="50" src="~/Content/assets/images/vnpay.png" /><h5>VNPay</h5><br>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div></div>
+                        <div class="form-group">
+                                                       <input type="radio" name="TypePayment" value="5">
+                            <img width="50" src="~/Content/assets/images/momo.png" /><h5>Momo</h5><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Đặt hàng</button>
+            </div>
+        </div>
+    }
+
+}
+
+
+
+

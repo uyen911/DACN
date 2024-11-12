@@ -1,0 +1,110 @@
+﻿@model  CosmeticsStore.Models.EF.Order
+@{
+    ViewBag.Title = "View";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<section style="padding-top:180px" class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Chi tiết đơn hàng</h3>
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Mã đơn hàng</label>
+                        <p class="form-control">@Model.Code</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Họ tên khách hàng</label>
+                        <p class="form-control">@Model.CustomerName</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tổng tiền</label>
+                        <p class="form-control">@CosmeticsStore.Common.Common.FormatNumber(Model.TotalAmount, 0) đ</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <p class="form-control">@Model.Phone</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Ngày đặt</label>
+                        <p class="form-control">@Model.CreatedDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <p class="form-control">@Model.Address</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <p class="form-control">@Model.Email</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        @switch (Model.TypePayment)
+                        {
+                            case 1:
+                                <p class="form-control">Chờ Thanh Toán</p>
+                                break;
+                            case 2:
+                                <p class="form-control">Đã Chuyển Khoản</p>
+                                break;
+                            case 3:
+                                <p class="form-control">Thanh Toán Paypal</p>
+                                break;
+                            case 4:
+                                <p class="form-control">Thanh Toán VNPay</p>
+                                break;
+                            case 5:
+                                <p class="form-control">Thanh Toán Momo</p>
+                                break;
+                            case 6:
+                                <p class="form-control">Hủy Đơn Hàng</p>
+                                break;
+                            default:
+                                break;
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Danh sách sản phẩm</h2>
+                </div>
+                <div class="col-12">
+                    @Html.Action("Partial_SanPham", "Orders", new { id = Model.Id })
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->

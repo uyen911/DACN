@@ -1,0 +1,67 @@
+﻿
+@model IEnumerable<CosmeticsStore.Models.ShoppingCartItem>
+@using CosmeticsStore.Common
+
+
+<link href="~/Content/assets/styles/checkout_style.css" rel="stylesheet" />
+@if (Model != null && Model.Any())
+{
+    
+    var TongTien = decimal.Zero;
+    <h2 class="title">Giỏ Hàng</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="font-weight:400px;font-size:14px">Hình ảnh</th>
+                <th style="font-weight:400px;font-size:14px">Sản phẩm</th>
+                <th style="font-weight:400px;font-size:14px">Số lượng</th>
+                <th style="font-weight:400px;font-size:14px">Giá</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @foreach (var item in Model)
+            {
+                TongTien += item.TotalPrice;
+                <tr class="cart-item">
+                    <td style="font-weight:400px;font-size:14px"><img src="@item.ProductImg" /></td>
+                    <td style="font-weight:400px;font-size:14px">@item.ProductName</td>
+                    <td style="font-weight:400px;font-size:14px">X @item.Quantity</td>
+                    <td style="font-weight:400px;font-size:14px">@Common.FormatNumber(item.Price, 0)đ</td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot class="table-foot">
+            <tr class="order-total">
+                <th style="font-weight:400px;font-size:14px">Tổng Tiền </th>
+                <th></th>
+                <th></th>
+                <td style="font-weight:400px;font-size:14px">@Common.FormatNumber(TongTien + ViewBag.ship, 0)đ</td>
+            </tr>
+        </tfoot>
+        <tfoot class="">
+            <tr class="">
+                <th style="font-weight:400px;font-size:14px">Thành tiền </th>
+                <th></th>
+                <th></th>
+                <td style="font-weight:400px;font-size:14px">@Common.FormatNumber(TongTien, 0)đ</td>
+            </tr>
+        </tfoot>
+        <tfoot class="">
+            <tr class="">
+                <th style="font-weight:400px;font-size:14px">Phí vận chuyển </th>
+                <th></th>
+                <th></th>
+                <td style="font-weight:400px;font-size:14px">@Common.FormatNumber(ViewBag.ship, 0)đ</td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+
+
+
+}
+
+

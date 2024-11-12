@@ -1,0 +1,263 @@
+﻿@model IEnumerable<CosmeticsStore.Models.EF.Order>
+
+@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Trang chủ</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
+                    <li class="breadcrumb-item active">Trang Chủ</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-gradient-blue">
+                    <div class="inner">
+                        <h3>@ViewBag.Orders</h3>
+
+                        <p>Đơn hàng</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="/admin/order" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-gradient-indigo">
+                    <div class="inner">
+                        <h3>@ViewBag.Products</h3>
+
+                        <p>Sản phẩm</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="/admin/products" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-gradient-red">
+                    <div class="inner">
+                        <h3>@ViewBag.Posts</h3>
+
+                        <p>Bài viết</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="/admin/posts" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-gradient-yellow">
+                    <div class="inner">
+                        <h3>@ViewBag.News</h3>
+
+                        <p>Tin tức</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="/admin/news" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>      
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="card-body">
+            <h3>Doanh thu bán hàng</h3>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="font-weight:bold">
+                                <th>Hôm qua</th>
+                                <th>Hôm nay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @if (Model != null && Model.Any())
+                                {
+                                    decimal toDay = 0;
+                                    decimal lastDay = 0;
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (item.CreatedDate.ToString("dd/MM/yyyy") == DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy") && item.TypePayment != 6)
+                                        {
+                                            lastDay += item.TotalAmount;
+                                        }
+                                        if (item.CreatedDate.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy") && item.TypePayment != 6)
+                                        {
+                                            toDay += item.TotalAmount;
+                                        }
+                                    }
+                                    <td>@CosmeticsStore.Common.Common.FormatNumber(lastDay, 0)</td>
+                                    <td>@CosmeticsStore.Common.Common.FormatNumber(toDay, 0)</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @*<div class="col-4">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="font-weight:bold">
+                                <th>Tuần trước</th>
+                                <th>Tuần này</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @if (Model != null && Model.Any())
+                                {
+                                    decimal toDay = 0;
+                                    decimal lastDay = 0;
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (item.CreatedDate.ToString("dd/MM/yyyy") == DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy"))
+                                        {
+                                            toDay += item.TotalAmount;
+                                        }
+                                        if (item.CreatedDate.ToString("dd/MM/yyyy") == DateTime.Today.ToString("dd/MM/yyyy"))
+                                        {
+                                            lastDay += item.TotalAmount;
+                                        }
+                                    }
+                                    <td>@CosmeticsStore.Common.Common.FormatNumber(toDay, 0)</td>
+                                    <td>@CosmeticsStore.Common.Common.FormatNumber(lastDay, 0)</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>*@
+                <div class="col-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr style="font-weight:bold">
+                                <th>Tháng trước</th>
+                                <th>Tháng này</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @if (Model != null && Model.Any())
+                                {
+                                    decimal month = 0;
+                                    decimal lastMonth = 0;
+                                    foreach (var item in Model)
+                                    {
+
+                                        if (item.CreatedDate.ToString("MM/yyyy") == DateTime.Today.AddMonths(-1).ToString("MM/yyyy") && item.TypePayment != 6)
+                                        {
+                                            month += item.TotalAmount;
+                                        }
+                                        if (item.CreatedDate.ToString("MM/yyyy") == DateTime.Today.ToString("MM/yyyy") && item.TypePayment != 6)
+                                        {
+                                            lastMonth += item.TotalAmount;
+                                        }
+                                    }
+                                    <td>@CosmeticsStore.Common.Common.FormatNumber(month, 0)</td>
+                                    <td>@CosmeticsStore.Common.Common.FormatNumber(lastMonth, 0)</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Left col -->
+            @{
+                <section class="content">
+                    <!-- Default box -->
+                    <div class="card-body">
+                        <h3>Đơn Hàng Mới</h3>
+                        <table class="table table-bordered">
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        TimeSpan time = DateTime.Now - item.CreatedDate;
+                                        int countDate = time.Days;
+                                        if (countDate <= 2 && item.TypePayment != 6)
+                                        {
+                                            <tr style="font-weight:bold">
+                                                <td>@i</td>
+                                                <td>Mã ĐH: @item.Code</td>
+                                                <td>Tên KH: @item.CustomerName</td>
+                                                <td>SĐT: @item.Phone</td>
+                                                <td>Tổng Tiền: @CosmeticsStore.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
+                                                @*<td>@(item.TypePayment==1? "Chờ thanh toán": "Đã thanh toán")</td>*@
+                                                @switch (item.TypePayment)
+                                                {
+                                                    case 1:
+                                                        <td>Chờ Thanh Toán</td>
+                                                        break;
+                                                    case 2:
+                                                        <td>Đã Chuyển Khoản</td>
+                                                        break;
+                                                    case 3:
+                                                        <td>Thanh Toán Paypal</td>
+                                                        break;
+                                                    case 4:
+                                                        <td>Thanh Toán VNPay</td>
+                                                        break;
+                                                    case 5:
+                                                        <td>Thanh Toán Momo</td>
+                                                        break;
+                                                    case 6:
+                                                        <td>Hủy Đơn Hàng</td>
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                <td>Ngày Đặt: @item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                </section>
+            }
+
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>

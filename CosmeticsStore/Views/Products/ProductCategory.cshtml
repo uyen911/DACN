@@ -1,0 +1,206 @@
+﻿@model  IEnumerable<CosmeticsStore.Models.EF.Product>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="san-pham">Sản Phẩm</a></li>
+                    <li class="active">
+                        <a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Danh Mục Sản Phẩm</h5>
+                    </div>
+                    @Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })
+                </div>
+
+                <!-- Price Range Filtering -->
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Lọc Theo Giá</h5>
+                    </div>
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; font-weight:bold;">
+                        <input type="hidden" id="FromAmount" />
+                        <input type="hidden" id="ToAmount" />
+                    </p>
+                    <div id="slider-range"></div>
+                    <div class="filter_button"><span>Lọc</span></div>
+
+
+                </div>
+
+                <!-- Sizes -->
+                @*<div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Sizes</h5>
+                        </div>
+                        <ul class="checkboxes">
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>S</span></li>
+                            <li class="active"><i class="fa fa-square" aria-hidden="true"></i><span>M</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>L</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>XL</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>XXL</span></li>
+                        </ul>
+                    </div>*@
+
+                <!-- Color -->
+                @*<div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Color</h5>
+                        </div>
+                        <ul class="checkboxes">
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Black</span></li>
+                            <li class="active"><i class="fa fa-square" aria-hidden="true"></i><span>Pink</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>White</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Blue</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Orange</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>White</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Blue</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Orange</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>White</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Blue</span></li>
+                            <li><i class="fa fa-square-o" aria-hidden="true"></i><span>Orange</span></li>
+                        </ul>
+                        <div class="show_more">
+                            <span><span>+</span>Show More</span>
+                        </div>
+                    </div>*@
+
+            </div>
+
+            <!-- Main Content -->
+
+            <div class="main_content">
+
+                <!-- Products -->
+
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Product Sorting -->
+
+                            <div class="product_sorting_container product_sorting_container_top">
+                                <ul class="product_sorting">
+                                    <li>
+                                        <span class="type_sorting_text">Sắp Xếp</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_type">
+                                            <li><a style="color: #fe4c50" href="~/Products/index">Mặc Định</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Products/SortByName">A -> Z</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Products/SortByNameZA">Z -> A</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Products/SortByPrice">Giá Tăng Dần</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Products/SortByPriceGiam">Giá Giảm Dần</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="pages d-flex flex-row align-items-center">
+                                    
+                                </div>
+                            </div>
+
+                            <!-- Product Grid -->
+
+                            <div class="product-grid">
+
+                                <!-- Product 1 -->
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var strImge = "";
+                                        var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+                                        if (img != null)
+                                        {
+                                            strImge = img.Image;
+                                        }
+                                        <div class="product-item @item.ProductCategory.Alias">
+                                            <div class="product discount product_filter">
+                                                <div class="product_image">
+                                                    <img src="@strImge" alt="@item.Title">
+                                                </div>
+                                                <div class="favorite favorite_left"></div>
+                                                @if (item.PriceScale > 0)
+                                                {
+                                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
+                                                }
+                                                @* <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
+                                                    @if (item.PriceScale > 0)
+                                                    {
+                                                        <div class="product_price">@CosmeticsStore.Common.Common.FormatNumber(item.PriceScale, 0)đ<span>@CosmeticsStore.Common.Common.FormatNumber(item.Price, 0)đ</span></div>
+                                                        @*<input type="hidden" value="@item.PriceSale" />*@
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="product_price">@CosmeticsStore.Common.Common.FormatNumber(item.Price, 0)đ</div>
+                                                        <div style="display:none;" class="in_product_price"> @item.Price</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            @if (item.Quantity <= 0)
+                                            {
+                                                <div class="red_button add_to_cart_button"><a href="#" data-id="@item.Id">Hết Hàng</a></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">Thêm vào giỏ hàng</a></div>
+                                            }
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+
+                            <!-- Product Sorting -->
+
+                            <div class="product_sorting_container product_sorting_container_bottom clearfix">
+
+                                @*<span class="showing_results">Showing 1–3 of 12 results</span>*@
+                                @*<div class="pages d-flex flex-row align-items-center">
+                                        <div class="page_current">
+                                            <span>1</span>
+                                            <ul class="page_selection">
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="page_total"><span>of</span> 3</div>
+                                        <div id="next_page_1" class="page_next"><a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+                                    </div>*@
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+}
+

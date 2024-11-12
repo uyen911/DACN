@@ -1,0 +1,46 @@
+﻿
+@model CosmeticsStore.Models.RegisterViewModel
+<section class="content">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.ValidationSummary(false)
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Tài khoản", style = "width:400px;" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Họ tên" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.DateOfBirth, new { @class = "form-control", @placeholder = "Ngày sinh" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Sex, new { @class = "form-control", @placeholder = "Giới tính" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+        </div>
+
+
+        <div class="form-group">
+            @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btna bkg">Đăng ký</button>
+        </div>
+    }
+</section>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

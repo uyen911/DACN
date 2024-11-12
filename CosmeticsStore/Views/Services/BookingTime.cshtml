@@ -1,0 +1,250 @@
+﻿
+@{
+    int i = 0;
+    string name = ViewBag.name;
+    string phone = ViewBag.phone;
+    string email = ViewBag.email;}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/bookingTime.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="san-pham">Đặt lịch</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+
+            <div class="main_content">
+
+                <div class="products_iso">
+                    <div class="left-panel">
+                        @*<div class="block_right_step">
+                            <div id="step_1" class="step_item">
+                                <span>1</span>Số điện thoại
+                            </div>
+                            <div id="step_2" class="step_item">
+                                <span>2</span>Chi nhánh
+                            </div>
+                            <div id="step_4" class="step_item">
+                                <span>3</span>Ngày giờ
+                            </div>
+                        </div>*@
+                        <div class="input_time">
+
+                            <h3>Thông tin đặt hẹn: </h3>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="name">Họ và tên:</label>
+                                        <input type="text" id="name" name="name" value="@ViewBag.name" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="email" name="email" value="@ViewBag.email" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Số điện thoại:</label>
+                                        <input type="tel" id="phone" name="phone" value="@ViewBag.phone" readonly>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <label for="time">Ngày hẹn:</label>
+                                        <input type="text" id="date" name="time" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="time">Giờ hẹn:</label>
+                                        <input type="text" id="time" name="time" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bracnh">Chi nhánh:</label>
+                                        <input type="text" id="bracnh" name="bracnh" value="@ViewBag.Branch" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input_time">
+                            <div class="row">
+                                <label style="padding-left:20px" for="name">Chọn Ngày Giờ: </label>
+                                <span class="txt_color_2"> *</span>
+                                <div style="padding-left:20px" class="item_demo demohetcho"><span></span>Quá giờ</div>
+                                <div style="padding-left:20px" class="item_demo democoncho"><span></span>Còn chỗ</div>
+                                <div style="padding-left:20px" class="item_demo demodangchon"><span></span>Đang chọn</div>
+                            </div>
+                            <div class="right-panel">
+                                <table class="time-grid">
+                                    <thead>
+                                        <tr class="date-header">
+                                            <th></th>
+                                            @foreach (var hoursOfDay in ViewBag.HoursOfDay)
+                                            {
+                                                <span class="date-label @if (hoursOfDay[i].Hour.Date == DateTime.Today) { <text>active</text> }" data-date="@hoursOfDay[i].Hour.Date.ToString("MM/dd/yyyy")">@hoursOfDay[i].Hour.Date.ToString("dd/MM")</span>
+                                                i++;
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+
+                                            @foreach (var hoursOfDay in ViewBag.HoursOfDay)
+                                            {
+                                                <td class="hour-row" data-date="@hoursOfDay[i].Hour.Date.ToString("MM/dd/yyyy")">
+                                                    @for (int j = 0; j < hoursOfDay.Count / 2; j++)
+                                                    {
+                                                        <button class="hour @if (hoursOfDay[j].IsPastTime) { <text>past-time</text> }" data-hour="@hoursOfDay[j].Hour.ToString("HH:mm")">@hoursOfDay[j].Hour.ToString("HH:mm")</button>
+                                                    }
+                                                </td>
+                                                <td class="hour-row" data-date="@hoursOfDay[i].Hour.Date.ToString("MM/dd/yyyy")">
+                                                    @for (int j = hoursOfDay.Count / 2; j < hoursOfDay.Count; j++)
+                                                    {
+                                                        <button class="hour @if (hoursOfDay[j].IsPastTime) { <text>past-time</text> }" data-hour="@hoursOfDay[j].Hour.ToString("HH:mm")">@hoursOfDay[j].Hour.ToString("HH:mm")</button>
+                                                    }
+                                                </td>
+                                                i++;
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="form-group" style="text-align: center">
+                                    <a href="/dat-lich" id="back-btn">Quay lại</a>
+                                    <button id="book-btn">Đặt lịch</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        var formData = new FormData();
+        formData.append('param1', latitude);
+        formData.append('param2', longitude);
+
+        $.ajax({
+            url: '/Services/BookingTime',
+            type: 'POST',
+            data: formData,
+            processData: false, // Chặn jQuery xử lý dữ liệu
+            contentType: false, // Không đặt Content-Type header
+            success: function (response) {
+                console.log("Truyền thành công");
+            },
+            error: function (error) {
+                console.log("Truyền thất bại: " + error);
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $(document).ready(function () {
+            $('.date-label.active').first().click();
+        });
+    // Bắt sự kiện click cho mỗi button giờ
+    $('.hour').click(function () {
+        // Loại bỏ lớp active khỏi tất cả các button giờ
+        $('.hour').removeClass('active');
+        // Thêm lớp active cho button giờ đang được chọn
+        $(this).addClass('active');
+    });
+
+    // Bắt sự kiện click cho mỗi tab ngày
+    $('.date-label').click(function () {
+        // Loại bỏ lớp active khỏi tất cả các tab ngày
+        $('.date-label').removeClass('active');
+        // Thêm lớp active cho tab ngày đang được chọn
+        $(this).addClass('active');
+        // Lấy ngày tương ứng với tab ngày đang được chọn
+        var date = $(this).data('date');
+        // Hiển thị danh sách giờ tương ứng với ngày đó
+        $('.hour-row').hide();
+        $('.hour-row[data-date="' + date + '"]').show();
+    });
+
+    // Bắt sự kiện click cho button đặt lịch
+   $(document).ready(function () {
+    $('.hour').click(function () {
+        // Loại bỏ lớp active khỏi tất cả các giờ
+        $('.hour').removeClass('active');
+        // Thêm lớp active cho giờ đang được chọn
+        $(this).addClass('active');
+        var selectedHour = $(this).text();
+        var selectedDate = $(this).closest('.hour-row').data('date');
+        $('#time').val(selectedHour);
+        $('#date').val(selectedDate);
+    });
+       var selectedHour = $('#time').val();
+       console.log(selectedHour);
+    $('#book-btn').click(function() {
+        // Lấy thông tin đặt lịch
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceId = urlParams.get('serviceId');
+
+        var selectedHour = $('#time').val();
+        console.log(selectedHour);
+        var selectedDate = $('#date').val();
+        var phone = '@ViewBag.phone';
+        var email = '@ViewBag.email';
+        var branchId = '@ViewBag.BranchId';
+        var name = encodeURIComponent('@ViewBag.name');
+        if (!selectedHour || !selectedDate) {
+            swal({
+                title: 'Thông báo',
+                text: 'Vui lòng chọn giờ và ngày đặt lịch!',
+                icon: 'warning',
+                button: 'Đóng'
+            });
+            console.log(serviceId);
+        }
+        // Gọi API để đặt lịch
+        else {
+            $.post('@Url.Action("BookAppointment", "Home")', { selectedDate: selectedDate, selectedHour: selectedHour, phone: phone, email: email, name: name, serviceId: serviceId, BranchId: branchId }, function (data) {
+                if (data.success) {
+                    var confirmUrl = '@Url.Action("ConfirmBooking", "Services")';
+                    confirmUrl += '?name=' + encodeURIComponent('@ViewBag.name');
+                    confirmUrl += '&email=' + encodeURIComponent('@ViewBag.email');
+                    confirmUrl += '&phone=' + encodeURIComponent('@ViewBag.phone');
+                    confirmUrl += '&date=' + encodeURIComponent(selectedDate);
+                    confirmUrl += '&time=' + encodeURIComponent(selectedHour);
+                    window.location.replace(confirmUrl);
+                }
+                else {
+                    swal({
+                        title: 'Thông báo',
+                        text: 'Bạn đã có lịch hẹn vào giờ này!',
+                        icon: 'warning',
+                        button: 'Đóng'
+                    });
+                }
+        });
+        }
+    });
+});
+;
+
+});
+
+
+</script>

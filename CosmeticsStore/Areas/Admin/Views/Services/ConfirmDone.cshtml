@@ -1,0 +1,202 @@
+﻿
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link"><font color="white">Trang chủ</font></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Services" class="nav-link"><font color="white">Dịch vụ</font></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link"><font color="white">Cập nhật</font></a>
+        </li>
+    </ul>
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách đặt lịch</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dịch vụ</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="main_content">
+        <div class="row">
+            <div style="width:150px;padding-left:10px">
+                <label for="phoneNumber">Nhập số điện thoại:</label>
+            </div>
+            <div class="col-4">
+                <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại của khách hàng">
+            </div>
+            <div class="col-2">
+                <button class="btn btn-warning" id="btnConfirm">Xác nhận</button>
+            </div>
+        </div>
+
+
+        <div style="text-align: center;align-content:center;align-items:center">
+            <h2 style="padding-top:15px">Thông tin khách hàng</h2>
+            <div class="row">
+                <div class="col-3">
+                    <span></span>
+                </div>
+                <div class="col-6">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="card card-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-info">
+                            <h5 class="form-control" style="font-size:17px;font-weight:bold">Dịch Vụ</h5>
+                            <h5 id="serviceName" class="widget-user-desc"></h5>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Khách hàng</h5>
+                                        <h5 class="description-header" id="customerName"></h5>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Ngày</h5>
+                                        <h5 class="description-header" id="date"></h5>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Mã đặt lịch</h5>
+                                        <h5 class="description-header" id="code"></h5>
+                                    </div>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+            </div>
+            <button id="completionButton" style="text-align:center;display: none;" class="cancel-appointment btn btn-success">Hoàn thành</button>
+        </div>
+
+    </div>
+</section>
+
+<script>
+        $(function () {
+            $('#btnConfirm').click(function () {
+                var phoneNumber = $('#phoneNumber').val();
+                if (phoneNumber) {
+                    // Send AJAX request to fetch customer information
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetCustomerInfo", "Services")', // Replace with the actual URL to fetch customer information
+                        data: { phoneNumber: phoneNumber },
+                        success: function (result) {
+                            if (result.success) {
+                                // Display customer information
+                                $('#customerName').text(result.customerName);
+                                $('#serviceName').text(result.serviceName);
+                                $('#date').text(result.date);
+                                $('#code').text(result.code);
+                                $('#completionButton').show().data('id', result.code);
+                                // Show the completion button
+                                $('#completionButton').show();
+                            } else {
+                                // Handle the case when customer information is not found
+                                swal({
+                                    title: 'Thông báo',
+                                    text: result.message,
+                                    icon: 'error',
+                                    button: 'Đóng'
+                                });
+                            }
+                        },
+                        error: function () {
+                            swal({
+                                title: 'Thông báo',
+                                text: result.message,
+                                icon: 'Có lỗi xảy ra khi lấy thông tin khách hàng. Vui lòng thử lại sau.',
+                                button: 'Đóng'
+                            });
+                        }
+                    });
+                }
+            });
+
+        });
+    function doneAppointment(code) {
+    swal({
+        title: 'Thông báo',
+        text: 'Khách hàng đã có mặt?',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DoneAppointment", "Services")',
+                data: { code: code },
+                success: function (result) {
+                    if (result.success) {
+                        swal({
+                            title: 'Thông báo',
+                            text: result.message,
+                            icon: 'success',
+                            button: "Đóng",
+                        }).then((value) => {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: 'Thông báo',
+                            text: result.message,
+                            icon: 'error',
+                            button: 'Đóng'
+                        });
+                    }
+                },
+                error: function () {
+                    swal({
+                        title: 'Thông báo',
+                        text: 'Có lỗi xảy ra khi xác nhận. Vui lòng thử lại sau.',
+                        icon: 'error',
+                        button: 'Đóng'
+                    });
+                }
+            });
+        }
+    })
+
+    }
+
+
+    $(function () {
+        $('body').on('click', '#completionButton', function () {
+            var id = $(this).closest('tr').find('.cancel-appointment').data('id');
+            var code = $(this).data('id');
+            doneAppointment(code);
+        });
+    });
+</script>

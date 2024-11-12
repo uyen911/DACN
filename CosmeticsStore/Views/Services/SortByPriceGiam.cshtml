@@ -1,0 +1,176 @@
+﻿@model IEnumerable<CosmeticsStore.Models.EF.Service>
+@{
+    ViewBag.Title = "Danh sách Dịch Vụ";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="san-pham">Sản Phẩm</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.CateName</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+                <!--<div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Danh Mục Sản Phẩm</h5>
+                    </div>-->
+                    @*@Html.Action("MenuLeft", "Menu", new { id = ViewBag.CateId })*@
+                <!--</div>-->
+
+                <!-- Price Range Filtering -->
+                <div class="sidebar_section">
+                    @*<div class="sidebar_title">
+                        <h5>Lọc theo Giá</h5>
+                    </div>
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="hidden" id="FromAmount" />
+                        <input type="hidden" id="ToAmount" />
+                    </p>
+                    <div id="slider-range"></div>
+                    <div class="filter_button"><span>Lọc</span></div>
+
+                    <hr />*@
+                    @Html.Action("Refesh", "Home")
+                </div>
+            </div>
+
+            <!-- Main Content -->
+
+            <div class="main_content">
+
+                <!-- Products -->
+
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col-10">
+
+                            <!-- Product Sorting -->
+
+                            <div class="product_sorting_container product_sorting_container_top">
+                                <ul class="product_sorting">
+                                    <li>
+                                        <span class="type_sorting_text">Sắp xếp</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_type">
+                                            <li><a style="color: #fe4c50" href="~/Services/index">Mặc Định</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Services/SortByName">A -> Z</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Services/SortByNameZA">Z -> A</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Services/SortByPrice">Giá Tăng Dần</a></li>
+                                            <li><a style="color: #fe4c50" href="~/Services/SortByPriceGiam">Giá Giảm Dần</a></li>
+                                        </ul>
+                                    </li>
+                                    @*<li>
+                                            <span>Show</span>
+                                            <span class="num_sorting_text">6</span>
+                                            <i class="fa fa-angle-down"></i>
+                                            <ul class="sorting_num">
+                                                <li class="num_sorting_btn"><span>6</span></li>
+                                                <li class="num_sorting_btn"><span>12</span></li>
+                                                <li class="num_sorting_btn"><span>24</span></li>
+                                            </ul>
+                                        </li>*@
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <form>
+                                @using (Html.BeginForm("index", "Services", FormMethod.Get, new { }))
+                                {
+                                    <div class="search-box">
+                                        <input id="Searchtext" name="Searchtext" type="text" placeholder="Tên dịch vụ">
+                                        <button type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                    @*<div class="input-group">
+                                            <input id="Searchtext" name="Searchtext" type="text" class="form-control" placeholder="Tên sản phẩm">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-lg btn-outline-danger">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>*@
+                                }
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <!-- Product Grid -->
+
+                    <div class="product-grid">
+
+                        <!-- Product 1 -->
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <!-- Product 1 -->
+                                var strImge = "";
+                                var img = item.ServiceImage.FirstOrDefault(x => x.IsDefault);
+                                if (img != null)
+                                {
+                                    strImge = img.Image;
+                                }
+                                <div class="product-item">
+                                    <div class="product discount product_filter">
+                                        <div class="product_image">
+                                            <img src="@strImge" alt="@item.Title">
+                                        </div>
+                                        <div class="favorite favorite_left"></div>
+
+                                        <div class="product_info">
+                                            <h6 class="product_name"><a href="/chi-tiet-dich-vu/@item.Alias-p@(item.Id)">@item.Title</a></h6>
+                                            <div class="product_price">@CosmeticsStore.Common.Common.FormatNumber(item.Price, 0)</div>
+                                        </div>
+                                    </div>
+                                    <div class="red_button dat_lich_button"><a href="#" class="btnAddToCart" data-id="@item.Id">Đặt Lịch</a></div>
+
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <!-- Product Sorting -->
+                    @*<div class="product_sorting_container product_sorting_container_bottom clearfix">
+                            <ul class="product_sorting">
+                                <li>
+                                    <span>Show:</span>
+                                    <span class="num_sorting_text">04</span>
+                                    <i class="fa fa-angle-down"></i>
+                                    <ul class="sorting_num">
+                                        <li class="num_sorting_btn"><span>01</span></li>
+                                        <li class="num_sorting_btn"><span>02</span></li>
+                                        <li class="num_sorting_btn"><span>03</span></li>
+                                        <li class="num_sorting_btn"><span>04</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+}
+
+

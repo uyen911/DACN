@@ -1,0 +1,226 @@
+﻿
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/chatForAdmin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyCZvI9fq0T5YbkjiWf1-9ptt_Y8ZdCsRQ0",
+        authDomain: "cosmetic-ae177.firebaseapp.com",
+        projectId: "cosmetic-ae177",
+        storageBucket: "cosmetic-ae177.appspot.com",
+        messagingSenderId: "17597861695",
+        appId: "1:17597861695:web:e585e3377c26f661690d8a",
+        measurementId: "G-5Q85XKQPJG",
+        databaseURL: "https://cosmetic-ae177-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    var database = firebase.database();
+
+    function displayMessageBySender(sender, content) {
+        var chatbox = document.getElementById("chatbox");
+        if (content.trim() !== '') {
+            var messageContainer = document.createElement("div");
+            messageContainer.classList.add(sender == "You" ? "from-me" : "to-me");
+            messageContainer.innerHTML = "<p class='message'>" + content + "</p>";
+            chatbox.appendChild(messageContainer);
+        }
+    }
+    var userId = 'b56e716a-8a94-4080-b6c1-d3f082d7a6e1';
+    database.ref("user/" + userId +"/").on("child_added", function (snapshot) {
+        var message = snapshot.val();
+        var sender = message.sender;
+        var content = message.content;
+        if (content.trim().length > 0) {
+            displayMessageBySender(sender, content);
+        }
+    });
+    function displayMessage(sender, content) {
+        displayMessageBySender(sender, content);
+    }
+
+    var database = firebase.database();
+
+
+    function sendMessage() {
+    var sender = "You";
+    var content = document.getElementById("message").value;
+
+    var messageId = new Date().getTime().toString();
+    database.ref("user/" + userId +"/" + messageId).set({
+        sender: sender,
+        content: content,
+    });
+    document.getElementById("message").value = "";
+        var chatContainerNext = document.querySelector(".chat-container");
+        console.log(chatContainerNext);
+        chatContainerNext.scrollTop = chatContainerNext.scrollHeight;
+    }
+
+    function init() {
+        @*var chatToggleButton = document.getElementById("chat-toggle-button");
+        var chatContainer = document.querySelector(".chat-wrapper");
+        var closeButton = document.getElementById("close-chatbox-button");
+
+        chatToggleButton.addEventListener("click", function () {
+            var isAuthenticated = @(User.Identity.IsAuthenticated.ToString().ToLower());
+            if (!isAuthenticated) {
+                window.location.href = "/Account/Login"; // Chuyển hướng đến trang đăng nhập
+                return;
+            }
+            if (chatContainer.classList.contains("show")) {
+                chatContainer.classList.remove("show");
+                chatContainer.classList.add("hide");
+                chatToggleButton.style.display = "block";
+
+            } else {
+                chatContainer.classList.remove("hide");
+                chatContainer.classList.add("show");
+                chatToggleButton.style.display = "none";
+                var chatContainerNext = document.querySelector(".chat-container");
+                chatContainerNext.scrollTop = chatContainerNext.scrollHeight;
+            }
+        });
+
+        closeButton.addEventListener("click", function () {
+            chatContainer.classList.remove("show");
+            chatContainer.classList.add("hide");
+            chatToggleButton.style.display = "block";
+        });
+        console.log(document.getElementById("message"));
+        document.getElementById("message").addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("send-button").click();
+            }
+        });
+        console.log(document.getElementById("send-button"));
+        document.getElementById("send-button").addEventListener("click", function () {
+            sendMessage();
+        });*@
+
+        var database = firebase.database();
+        var usersRef = database.ref("user");
+
+        usersRef.once("value", function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                var userId = childSnapshot.key;
+                $.get("/Admin/Chat/GetUserById", { userId: userId }, function (data) {
+                    if (data != null) {
+                        var name = data.name;
+                        var image = data.image;
+
+                        // Tạo phần tử HTML cho người dùng
+                        var userElement = document.createElement("li");
+                        userElement.classList.add("user-item");
+                        userElement.dataset.userId = userId;
+                        userElement.innerHTML = `
+                    <img class="user-item-image" src="${image}">
+                    <span class="user-item-name">${name}</span>
+                    <span class="user-item-latest-message"></span>
+                `;
+
+                        // Chèn phần tử người dùng vào danh sách
+                        var userListElement = document.getElementById("user-list");
+                        userListElement.appendChild(userElement);
+
+                        // Lấy tin nhắn mới nhất từ user đó
+                        var messagesRef = database.ref("messages").child(userId);
+                        messagesRef.limitToLast(1).on("child_added", function (messageSnapshot) {
+                            var message = messageSnapshot.val();
+                            var messageText = message.text;
+                            console.log(messageText);
+
+                            // Hiển thị tin nhắn mới nhất trong phần tử người dùng
+                            var latestMessageElement = userElement.querySelector(".user-item-latest-message");
+                            latestMessageElement.textContent = messageText;
+                        });
+                    }
+                });
+            });
+        });
+
+
+
+
+    }
+
+</script>
+
+<body onload="init()">
+    @section naviheader{
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/admin/home" class="nav-link"><font color="white">Trang chủ</font></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/admin/Branchs" class="nav-link"><font color="white">Chi nhánh</font></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link"><font color="white">Thêm mới</font></a>
+            </li>
+        </ul>
+    }
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Thêm mới Chi nhánh</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Chi nhánh</a></li>
+                        <li class="breadcrumb-item active">Thêm mới</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="user-list-container">
+            <h3 class="user-list-header">Users:</h3>
+            <ul id="user-list" class="user-list">
+                <!-- Danh sách người dùng sẽ được thêm vào đây -->
+            </ul>
+        </div>
+        <div class="user-details-container">
+            <div class="user-details-header">
+                
+            </div>
+        </div>
+
+
+        @*<button id="chat-toggle-button">&#x1F4AC;</button>
+            <div class="chat-wrapper hide" data-userid="@userId">
+                <div class="chat-header">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <img src="~/Content/Image/comesticAvt.jpg" />
+                        </div>
+                        <span class="user-name">Cosmetic</span>
+                    </div>
+                    <button id="close-chatbox-button"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="chat-container">
+                    <div id="chatbox"></div>
+                    <div class="chat-input">
+                        <input type="text" id="message" placeholder="Type message ...">
+                        <button id="send-button" onclick=sendMessage()>Send</button>
+                    </div>
+                </div>
+            </div>*@
+    </section>
+</body>
+
