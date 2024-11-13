@@ -97,21 +97,22 @@
                             {
                                 strImg = iimg.Image;
                             }
-                            <tr id="trow_@item.Id">
-                                <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
-                                <td>@i</td>
-                                <td><img class="imgservice" data-id="@item.Id" src="@strImg" width="50" /></td>
-                                <td>@item.Title</td>
-                                <td>@CosmeticsStore.Common.Common.FormatNumber(item.Price, 0)</td>
-                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
-                                <td class="text-center">
-                                    <a href='#' data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
-                                </td>
-                                <td>
-                                    <a href="/admin/Services/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
-                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                                </td>
-                            </tr>
+							<tr id="trow_@item.Id">
+								<td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
+								<td>@i</td>
+								<td><img class="imgservice" data-id="@item.Id" src="@strImg" width="50" /></td>
+								<td class="imgservice" data-id="@item.Id">@item.Title</td>
+								<td>@item.Title</td>
+								<td>@CosmeticsStore.Common.Common.FormatNumber(item.Price, 0)</td>
+								<td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+								<td class="text-center">
+									<a href='#' data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
+								</td>
+								<td>
+									<a href="/admin/Services/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
+									<a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+								</td>
+							</tr>
                             i++;
                         }
                     }
