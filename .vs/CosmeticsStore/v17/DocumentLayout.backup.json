@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|c:\\users\\kh\\documents\\downloads\\cosmeticsstore\\doan\\cosmeticsstore\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|solutionrelative:cosmeticsstore\\areas\\admin\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|c:\\users\\kh\\documents\\downloads\\cosmeticsstore\\doan\\cosmeticsstore\\areas\\admin\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|solutionrelative:cosmeticsstore\\areas\\admin\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|c:\\users\\kh\\documents\\downloads\\cosmeticsstore\\doan\\cosmeticsstore\\areas\\admin\\views\\services\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|solutionrelative:cosmeticsstore\\areas\\admin\\views\\services\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|c:\\users\\kh\\documents\\downloads\\cosmeticsstore\\doan\\cosmeticsstore\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|solutionrelative:cosmeticsstore\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,40 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "RelativeDocumentMoniker": "CosmeticsStore\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "ToolTip": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "RelativeToolTip": "CosmeticsStore\\Areas\\Admin\\Views\\Products\\Index.cshtml",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAAAIkAAABaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T15:57:59.454Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Services\\Index.cshtml",
-              "RelativeDocumentMoniker": "CosmeticsStore\\Areas\\Admin\\Views\\Services\\Index.cshtml",
-              "ToolTip": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Services\\Index.cshtml*",
-              "RelativeToolTip": "CosmeticsStore\\Areas\\Admin\\Views\\Services\\Index.cshtml*",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAGcAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T15:57:54.338Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Add.cshtml",
-              "DocumentMoniker": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Services\\Add.cshtml",
-              "RelativeDocumentMoniker": "CosmeticsStore\\Areas\\Admin\\Views\\Services\\Add.cshtml",
-              "ToolTip": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Services\\Add.cshtml",
-              "RelativeToolTip": "CosmeticsStore\\Areas\\Admin\\Views\\Services\\Add.cshtml",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAWwFIAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-13T15:46:44.486Z",
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Web.config",
+              "RelativeDocumentMoniker": "CosmeticsStore\\Web.config",
+              "ToolTip": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Web.config",
+              "RelativeToolTip": "CosmeticsStore\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-11-14T12:19:29.314Z",
               "EditorCaption": ""
             }
           ]
