@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|c:\\users\\kh\\documents\\downloads\\cosmeticsstore\\doan\\cosmeticsstore\\areas\\admin\\views\\category\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|solutionrelative:cosmeticsstore\\areas\\admin\\views\\category\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|c:\\users\\kh\\documents\\downloads\\cosmeticsstore\\doan\\cosmeticsstore\\areas\\admin\\views\\category\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{284E3E69-AF89-4817-AE0A-867339008869}|CosmeticsStore\\CosmeticsStore.csproj|solutionrelative:cosmeticsstore\\areas\\admin\\views\\category\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,14 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "RelativeDocumentMoniker": "CosmeticsStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "RelativeToolTip": "CosmeticsStore\\Areas\\Admin\\Views\\Category\\Edit.cshtml",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAF4AAAAeAAAAAAAAAA==",
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Category\\Add.cshtml",
+              "RelativeDocumentMoniker": "CosmeticsStore\\Areas\\Admin\\Views\\Category\\Add.cshtml",
+              "ToolTip": "C:\\Users\\KH\\Documents\\Downloads\\CosmeticsStore\\DoAn\\CosmeticsStore\\Areas\\Admin\\Views\\Category\\Add.cshtml",
+              "RelativeToolTip": "CosmeticsStore\\Areas\\Admin\\Views\\Category\\Add.cshtml",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFMAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-11-14T13:36:49.318Z",
+              "WhenOpened": "2024-11-16T11:47:38.438Z",
               "EditorCaption": ""
             }
           ]
