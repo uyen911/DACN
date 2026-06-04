@@ -1,0 +1,10 @@
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.csproj.AssemblyReference.cache
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.csproj.SuggestedBindingRedirects.cache
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.dll.config
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.GeneratedMSBuildEditorConfig.editorconfig
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.gentestingplatformentrypointinputcache.cache
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.genautoregisteredextensionsinputcache.cache
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.AssemblyInfoInputs.cache
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.AssemblyInfo.cs
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.csproj.CoreCompileInputs.cache
+D:\Trasas\DACN\CosmeticsStore.Tests\obj\Debug\net472\CosmeticsStore.Tests.sourcelink.json

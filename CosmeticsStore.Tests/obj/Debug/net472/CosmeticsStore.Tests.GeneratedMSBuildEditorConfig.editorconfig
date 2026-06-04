@@ -1,0 +1,9 @@
+is_global = true
+build_property.IsMSTestTestAdapterReferenced = true
+build_property.RootNamespace = CosmeticsStore.Tests
+build_property.ProjectDir = D:\Trasas\DACN\CosmeticsStore.Tests\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
