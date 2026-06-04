@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -48,8 +48,8 @@ namespace CosmeticsStore.Models
         public DbSet<Posts> Posts { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<SystemSetting> SystemSettings { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<AddressBook> AddressBooks { get; set; }
         public DbSet<Contact> Contacts { get; set; }
