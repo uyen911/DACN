@@ -1,4 +1,4 @@
-using CosmeticsStore.Models;
+﻿using CosmeticsStore.Models;
 using CosmeticsStore.Models.EF;
 using Microsoft.AspNet.Identity;
 using PagedList;
@@ -17,17 +17,7 @@ namespace CosmeticsStore.Controllers
 {
     public class ProductsController : Controller
     {
-        private ApplicationDbContext db;
-
-        public ProductsController()
-        {
-            db = new ApplicationDbContext();
-        }
-
-        public ProductsController(ApplicationDbContext context)
-        {
-            db = context;
-        }
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Products
         public ActionResult Index(string Searchtext, int? page)
         {
